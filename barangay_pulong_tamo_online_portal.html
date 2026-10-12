@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barangay Pulong Tamo - e-Services & Decision Hub | San Ildefonso, Bulacan</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for Decision Support System -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        phBlue: '#0038A8',
+                        phRed: '#CE1126',
+                        phYellow: '#FCD116',
+                        govNavy: '#0F2C59',
+                        govAccent: '#1B4D3E',
+                        govGold: '#D4AF37',
+                        govLight: '#F8FAFC'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
+        .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); }
+        .ph-gradient { background: linear-gradient(135deg, #0F2C59 0%, #1B4D3E 100%); }
+        .gold-border { border-color: #D4AF37; }
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+        }
+        .print-only { display: none; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-govNavy text-white text-xs sm:text-sm py-2 px-4 shadow-md no-print border-b-2 border-govGold">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center gap-2 text-center sm:text-left">
+                <span class="bg-phRed text-white px-2 py-0.5 rounded font-bold uppercase text-[10px] tracking-wide">Notice</span>
+                <span>Barangay Hall Office Hours: Mon-Fri 8:00 AM - 5:00 PM | San Ildefonso, Bulacan</span>
+            </div>
+            <div class="flex items-center gap-4 text-xs">
+                <a href="tel:09171234567" class="hover:text-phYellow transition-colors"><i class="fas fa-phone mr-1"></i> Hotline: (044) 815-2026</a>
+                <span class="hidden md:inline">|</span>
+                <span class="hidden md:inline"><i class="fas fa-map-marker-alt text-phRed mr-1"></i> Purok 3, Pulong Tamo</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="bg-white shadow-md sticky top-0 z-40 no-print border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                
+                <!-- Logo & Barangay Identity -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+                    <div class="w-12 h-12 rounded-full bg-govNavy text-phYellow flex items-center justify-center font-bold text-xl border-2 border-govGold shadow-inner">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-bold uppercase tracking-wider text-phBlue bg-blue-50 px-2 py-0.5 rounded border border-blue-200">Republic of the Philippines</span>
+                        </div>
+                        <h1 class="text-lg sm:text-xl font-extrabold text-govNavy leading-tight uppercase tracking-tight">Barangay Pulong Tamo</h1>
+                        <p class="text-xs text-slate-500 font-medium">Municipality of San Ildefonso, Province of Bulacan</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden lg:flex items-center space-x-1 text-sm font-semibold">
+                    <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-3 py-2 rounded-lg text-govNavy hover:bg-slate-100 transition"><i class="fas fa-home mr-1"></i> Home</button>
+                    <button onclick="switchTab('docs')" id="nav-docs" class="nav-btn px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-govNavy transition"><i class="fas fa-file-invoice mr-1"></i> Documents Catalog</button>
+                    <button onclick="switchTab('request')" id="nav-request" class="nav-btn px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-govNavy transition"><i class="fas fa-pen-to-square mr-1"></i> Online Request</button>
+                    <button onclick="switchTab('dss')" id="nav-dss" class="nav-btn px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-govNavy transition flex items-center"><i class="fas fa-chart-pie text-phBlue mr-1"></i> Decision Hub <span class="ml-1 bg-amber-100 text-amber-800 text-[10px] px-1.5 py-0.5 rounded-full font-bold">DSS</span></button>
+                    <button onclick="switchTab('track')" id="nav-track" class="nav-btn px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-govNavy transition"><i class="fas fa-magnifying-glass mr-1"></i> Track Request</button>
+                    <button onclick="switchTab('blotter')" id="nav-blotter" class="nav-btn px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-govNavy transition"><i class="fas fa-scale-balanced mr-1"></i> Incident Portal</button>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden flex items-center">
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-slate-700 hover:text-govNavy p-2 rounded-lg focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2 shadow-lg">
+            <button onclick="switchTab('home')" class="block w-full text-left px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-100"><i class="fas fa-home w-6"></i> Home</button>
+            <button onclick="switchTab('docs')" class="block w-full text-left px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-100"><i class="fas fa-file-invoice w-6"></i> Available Documents</button>
+            <button onclick="switchTab('request')" class="block w-full text-left px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-100"><i class="fas fa-pen-to-square w-6"></i> Request Document</button>
+            <button onclick="switchTab('dss')" class="block w-full text-left px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-100"><i class="fas fa-chart-pie w-6 text-phBlue"></i> Decision-Making Hub & Polls</button>
+            <button onclick="switchTab('track')" class="block w-full text-left px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-100"><i class="fas fa-magnifying-glass w-6"></i> Track Status</button>
+            <button onclick="switchTab('blotter')" class="block w-full text-left px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-100"><i class="fas fa-scale-balanced w-6"></i> Incident & Blotter</button>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+
+        <!-- TAB 1: HOME PAGE -->
+        <section id="tab-home" class="tab-content space-y-8">
+            <!-- Hero Banner -->
+            <div class="ph-gradient rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden border-b-4 border-govGold">
+                <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl font-bold select-none">
+                    <i class="fas fa-shield-halved"></i>
+                </div>
+                <div class="relative z-10 max-w-3xl space-y-4">
+                    <span class="inline-block bg-phYellow text-govNavy px-3 py-1 rounded-full font-bold text-xs uppercase tracking-wider shadow">Official E-Governance Portal</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold leading-tight">Welcome to Barangay Pulong Tamo Digital Portal</h2>
+                    <p class="text-slate-200 text-sm sm:text-base leading-relaxed">
+                        Fast, transparent, and hassle-free barangay services for residents of Purok 1 to Purok 7. Request clearances, track applications, participate in community decision-making, and access official public announcements online.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-3">
+                        <button onclick="switchTab('request')" class="bg-phYellow text-govNavy hover:bg-yellow-400 font-bold px-6 py-3 rounded-xl shadow-lg transition transform hover:-translate-y-0.5 flex items-center">
+                            <i class="fas fa-file-export mr-2"></i> Request Document Now
+                        </button>
+                        <button onclick="switchTab('dss')" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-xl backdrop-blur-sm border border-white/30 transition flex items-center">
+                            <i class="fas fa-chart-line mr-2"></i> Decision Hub & Analytics
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Action Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div onclick="switchTab('request')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition cursor-pointer group">
+                    <div class="w-12 h-12 bg-blue-100 text-phBlue rounded-xl flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800">Document Request</h3>
+                    <p class="text-slate-500 text-xs mt-1">Clearances, Residency, Indigency, ID, & Custom document requests.</p>
+                </div>
+                <div onclick="switchTab('track')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition cursor-pointer group">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
+                        <i class="fas fa-search-location"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800">Track Reference</h3>
+                    <p class="text-slate-500 text-xs mt-1">Check real-time status of your requested documents using tracking ID.</p>
+                </div>
+                <div onclick="switchTab('dss')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition cursor-pointer group">
+                    <div class="w-12 h-12 bg-purple-100 text-purple-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
+                        <i class="fas fa-diagram-project"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800">Barangay DSS</h3>
+                    <p class="text-slate-500 text-xs mt-1">Interactive decision support tool for barangay officials and citizens.</p>
+                </div>
+                <div onclick="switchTab('blotter')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition cursor-pointer group">
+                    <div class="w-12 h-12 bg-rose-100 text-phRed rounded-xl flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
+                        <i class="fas fa-handshake-angle"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800">Lupong Tagapamayapa</h3>
+                    <p class="text-slate-500 text-xs mt-1">File blotters, request peaceful mediation, or report community incidents.</p>
+                </div>
+            </div>
+
+            <!-- Barangay Profile & Information Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Barangay Info -->
+                <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+                    <div class="border-b border-slate-100 pb-3 flex justify-between items-center">
+                        <h3 class="text-xl font-bold text-govNavy flex items-center">
+                            <i class="fas fa-circle-info text-phBlue mr-2"></i> About Barangay Pulong Tamo
+                        </h3>
+                        <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-medium">ZIP Code: 3010</span>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        <strong>Barangay Pulong Tamo</strong> is one of the vibrant agricultural and residential barangays situated in the Municipality of <strong>San Ildefonso, Bulacan</strong>. Divided into 7 distinct Puroks (Purok 1 to Purok 7), the barangay leadership is committed to responsive public service, digital innovation, and community peace and order.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 text-center">
+                            <span class="block text-xl font-extrabold text-govNavy">7</span>
+                            <span class="text-xs text-slate-500">Puroks</span>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 text-center">
+                            <span class="block text-xl font-extrabold text-govNavy">4,280+</span>
+                            <span class="text-xs text-slate-500">Estimated Residents</span>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 text-center">
+                            <span class="block text-xl font-extrabold text-govNavy">24/7</span>
+                            <span class="text-xs text-slate-500">Emergency Desk</span>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 text-center">
+                            <span class="block text-xl font-extrabold text-govNavy">100%</span>
+                            <span class="text-xs text-slate-500">Digital Document Desk</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <h4 class="font-bold text-slate-800 text-sm mb-2">Incumbent Barangay Council & Leadership:</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <div class="p-2 bg-amber-50 border border-amber-200 rounded-lg font-medium">
+                                <i class="fas fa-user-shield text-amber-700 mr-1.5"></i> <strong>Punong Barangay:</strong> Hon. Juanito "Ka Nito" Santos
+                            </div>
+                            <div class="p-2 bg-slate-50 border border-slate-200 rounded-lg">
+                                <i class="fas fa-user text-slate-500 mr-1.5"></i> <strong>Kagawad (Health):</strong> Hon. Maria Clara Ramos
+                            </div>
+                            <div class="p-2 bg-slate-50 border border-slate-200 rounded-lg">
+                                <i class="fas fa-user text-slate-500 mr-1.5"></i> <strong>Kagawad (Peace & Order):</strong> Hon. Roberto Dela Cruz
+                            </div>
+                            <div class="p-2 bg-slate-50 border border-slate-200 rounded-lg">
+                                <i class="fas fa-user text-slate-500 mr-1.5"></i> <strong>SK Chairperson:</strong> Hon. Angelo Mendoza
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emergency Hotlines Sidebar -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+                    <div class="border-b border-slate-100 pb-3">
+                        <h3 class="text-xl font-bold text-phRed flex items-center">
+                            <i class="fas fa-phone-volume mr-2"></i> Emergency Contacts
+                        </h3>
+                        <p class="text-xs text-slate-500">San Ildefonso, Bulacan Local Response</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <a href="tel:09171234567" class="flex items-center justify-between p-3 bg-red-50 hover:bg-red-100 rounded-xl border border-red-200 transition text-red-900">
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-building-shield text-phRed text-lg"></i>
+                                <div>
+                                    <span class="block text-xs font-bold uppercase">Barangay Pulong Tamo Tanod Desk</span>
+                                    <span class="text-xs font-mono">0917-123-4567</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-xs"></i>
+                        </a>
+
+                        <a href="tel:09988776655" class="flex items-center justify-between p-3 bg-slate-50 hover:bg-slate-100 rounded-xl border border-slate-200 transition">
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-user-ninja text-blue-700 text-lg"></i>
+                                <div>
+                                    <span class="block text-xs font-bold uppercase">San Ildefonso Police Station</span>
+                                    <span class="text-xs font-mono">0998-877-6655 / (044) 815-1111</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-xs"></i>
+                        </a>
+
+                        <a href="tel:09123456789" class="flex items-center justify-between p-3 bg-slate-50 hover:bg-slate-100 rounded-xl border border-slate-200 transition">
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-fire-extinguisher text-amber-600 text-lg"></i>
+                                <div>
+                                    <span class="block text-xs font-bold uppercase">BFP San Ildefonso Fire Desk</span>
+                                    <span class="text-xs font-mono">(044) 815-2222</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-xs"></i>
+                        </a>
+
+                        <a href="tel:09223344556" class="flex items-center justify-between p-3 bg-slate-50 hover:bg-slate-100 rounded-xl border border-slate-200 transition">
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-user-doctor text-emerald-600 text-lg"></i>
+                                <div>
+                                    <span class="block text-xs font-bold uppercase">Pulong Tamo Rural Health Unit</span>
+                                    <span class="text-xs font-mono">0922-334-4556</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: DOCUMENTS CATALOG -->
+        <section id="tab-docs" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                <div class="flex flex-col md:flex-row justify-between md:items-center gap-4 border-b border-slate-100 pb-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-govNavy">Barangay Documents & Issuances</h2>
+                        <p class="text-sm text-slate-500">Official clearances, certifications, and identification available for online request.</p>
+                    </div>
+                    <button onclick="switchTab('request')" class="bg-phBlue text-white font-semibold px-5 py-2.5 rounded-xl hover:bg-blue-900 transition flex items-center justify-center">
+                        <i class="fas fa-plus-circle mr-2"></i> File New Request
+                    </button>
+                </div>
+
+                <!-- Document Grid -->
+                <div id="docs-catalog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                    <!-- Dynamic rendering via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: ONLINE REQUEST FORM / WIZARD -->
+        <section id="tab-request" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 max-w-4xl mx-auto">
+                <div class="border-b border-slate-200 pb-4 mb-6">
+                    <span class="text-xs font-bold uppercase text-phBlue tracking-wider">Official Form</span>
+                    <h2 class="text-2xl font-bold text-govNavy">Barangay Online Document Application</h2>
+                    <p class="text-sm text-slate-500">Fill out citizen information accurately. You can select standard issuances or type custom document needs.</p>
+                </div>
+
+                <form id="doc-request-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                    
+                    <!-- Document Selection Section -->
+                    <div class="bg-slate-50 p-4 sm:p-5 rounded-xl border border-slate-200 space-y-4">
+                        <h3 class="font-bold text-slate-800 text-sm flex items-center">
+                            <span class="w-6 h-6 bg-phBlue text-white rounded-full flex items-center justify-center text-xs mr-2">1</span>
+                            Select Document Type
+                        </h3>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Document Needed <span class="text-phRed">*</span></label>
+                                <select id="docTypeSelect" onchange="updateDocDetails()" required class="w-full bg-white border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-phBlue focus:outline-none">
+                                    <option value="" disabled selected>-- Select Official Document --</option>
+                                    <option value="clearance">Barangay Clearance</option>
+                                    <option value="residency">Certificate of Residency</option>
+                                    <option value="indigency">Certificate of Indigency</option>
+                                    <option value="id">Barangay Resident ID Card</option>
+                                    <option value="firstjob">First Time Job Seeker Certificate (RA 11261)</option>
+                                    <option value="business">Barangay Business Permit Clearance</option>
+                                    <option value="moral">Certificate of Good Moral Character</option>
+                                    <option value="blotter_cert">Barangay Blotter Certificate / No-Derogatory Record</option>
+                                    <option value="custom_doc">✏️ Custom / Unlisted Special Document Request</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Processing Priority <span class="text-phRed">*</span></label>
+                                <select id="processingType" onchange="updateDocDetails()" class="w-full bg-white border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-phBlue focus:outline-none">
+                                    <option value="regular">Regular Processing (2-3 Working Days)</option>
+                                    <option value="express">Express / Same-Day Urgent (+₱30.00)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Custom Document Input Box (Shown if custom_doc is selected) -->
+                        <div id="customDocBox" class="hidden bg-amber-50 p-4 rounded-xl border border-amber-200 space-y-3">
+                            <label class="block text-xs font-bold text-amber-900">
+                                <i class="fas fa-edit mr-1"></i> Specify Custom Document Title & Detailed Requirement Description <span class="text-phRed">*</span>
+                            </label>
+                            <input type="text" id="customDocTitle" placeholder="e.g., Certificate of Tree Cutting / Electrical Connection Endorsement / Water Meter Request" class="w-full border border-amber-300 rounded-lg p-2.5 text-sm bg-white focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                            <textarea id="customDocDetails" rows="2" placeholder="Please elaborate on why you need this specific unlisted document..." class="w-full border border-amber-300 rounded-lg p-2.5 text-sm bg-white focus:ring-2 focus:ring-amber-500 focus:outline-none"></textarea>
+                        </div>
+
+                        <!-- Dynamic Document Fee & Requirements Notice -->
+                        <div id="docRequirementNotice" class="bg-blue-50 border border-blue-200 text-blue-900 p-4 rounded-xl text-xs space-y-1 hidden">
+                            <div class="flex justify-between font-bold border-b border-blue-200 pb-1">
+                                <span><i class="fas fa-info-circle mr-1"></i> Document Requirements & Fees</span>
+                                <span id="feeBadge" class="text-phBlue font-extrabold text-sm">₱50.00</span>
+                            </div>
+                            <p id="docRequirementsText" class="pt-1 text-slate-700"></p>
+                        </div>
+                    </div>
+
+                    <!-- Applicant Information -->
+                    <div class="bg-slate-50 p-4 sm:p-5 rounded-xl border border-slate-200 space-y-4">
+                        <h3 class="font-bold text-slate-800 text-sm flex items-center">
+                            <span class="w-6 h-6 bg-phBlue text-white rounded-full flex items-center justify-center text-xs mr-2">2</span>
+                            Resident Personal Details
+                        </h3>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="sm:col-span-1">
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Full Name (First, Middle, Last) <span class="text-phRed">*</span></label>
+                                <input type="text" id="reqFullName" required placeholder="Juan Dela Cruz" class="w-full border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-phBlue focus:outline-none bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Date of Birth <span class="text-phRed">*</span></label>
+                                <input type="date" id="reqDob" required class="w-full border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-phBlue focus:outline-none bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Civil Status <span class="text-phRed">*</span></label>
+                                <select id="reqCivilStatus" required class="w-full border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-phBlue focus:outline-none bg-white">
+                                    <option value="Single">Single</option>
+                                    <option value="Married">Married</option>
+                                    <option value="Widowed">Widowed</option>
+                                    <option value="Separated">Separated</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Purok Address (Pulong Tamo) <span class="text-phRed">*</span></label>
+                                <select id="reqPurok" required class="w-full border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-phBlue focus:outline-none bg-white">
+                                    <option value="" disabled selected>-- Select Purok --</option>
+                                    <option value="Purok 1">Purok 1</option>
+                                    <option value="Purok 2">Purok 2</option>
+                                    <option value="Purok 3">Purok 3</option>
+                                    <option value="Purok 4">Purok 4</option>
+                                    <option value="Purok 5">Purok 5</option>
+                                    <option value="Purok 6">Purok 6</option>
+                                    <option value="Purok 7">Purok 7</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Mobile / Contact Number <span class="text-phRed">*</span></label>
+                                <input type="tel" id="reqPhone" required placeholder="0917 123 4567" class="w-full border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-phBlue focus:outline-none bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Email Address (Optional)</label>
+                                <input type="email" id="reqEmail" placeholder="juan@gmail.com" class="w-full border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-phBlue focus:outline-none bg-white">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Specific Purpose of Request <span class="text-phRed">*</span></label>
+                            <input type="text" id="reqPurpose" required placeholder="e.g. Employment application, Scholarship, Bank account opening, Local Business Permit" class="w-full border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-phBlue focus:outline-none bg-white">
+                        </div>
+                    </div>
+
+                    <!-- Delivery & ID Upload -->
+                    <div class="bg-slate-50 p-4 sm:p-5 rounded-xl border border-slate-200 space-y-4">
+                        <h3 class="font-bold text-slate-800 text-sm flex items-center">
+                            <span class="w-6 h-6 bg-phBlue text-white rounded-full flex items-center justify-center text-xs mr-2">3</span>
+                            Fulfillment & Verification
+                        </h3>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Preferred Document Delivery <span class="text-phRed">*</span></label>
+                                <select id="reqDelivery" class="w-full border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-phBlue focus:outline-none bg-white">
+                                    <option value="pickup">Physical Copy - Pick-up at Barangay Hall</option>
+                                    <option value="digital">Digital Copy (PDF via Email / Online Download)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Upload Valid Government ID (Simulated) <span class="text-phRed">*</span></label>
+                                <input type="file" id="reqIdUpload" accept="image/*" onchange="previewUpload(event)" required class="w-full text-xs text-slate-500 border border-slate-300 rounded-xl p-2 bg-white cursor-pointer">
+                            </div>
+                        </div>
+
+                        <!-- ID Image Preview -->
+                        <div id="idPreviewBox" class="hidden bg-white p-3 rounded-xl border border-slate-200 flex items-center gap-3">
+                            <img id="idPreviewImg" src="" alt="Valid ID Preview" class="w-16 h-12 object-cover rounded-md border border-slate-300">
+                            <div class="text-xs">
+                                <p id="idFileName" class="font-bold text-slate-700"></p>
+                                <p class="text-emerald-600 font-semibold"><i class="fas fa-check-circle"></i> ID Attachment Ready for Submission</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Action -->
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="text-xs text-slate-500">
+                            <i class="fas fa-shield-alt text-phBlue mr-1"></i> Data protected under Republic Act 10173 (Data Privacy Act of 2012).
+                        </div>
+                        <button type="submit" class="w-full sm:w-auto bg-phBlue hover:bg-govNavy text-white font-bold px-8 py-3 rounded-xl shadow-lg transition transform hover:-translate-y-0.5 flex items-center justify-center">
+                            <i class="fas fa-paper-plane mr-2"></i> Submit Request & Generate Code
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- TAB 4: DECISION SUPPORT SYSTEM (DSS) & ANALYTICS HUB -->
+        <section id="tab-dss" class="tab-content hidden space-y-8">
+            
+            <!-- DSS Header -->
+            <div class="ph-gradient rounded-2xl p-6 text-white shadow-md border-b-4 border-govGold flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="bg-phYellow text-govNavy px-2.5 py-0.5 rounded text-xs font-bold uppercase">Decision Support System</span>
+                        <span class="text-xs text-slate-200">Data-Driven Governance Portal</span>
+                    </div>
+                    <h2 class="text-2xl font-extrabold mt-1">Barangay Pulong Tamo Analytics & Decision Hub</h2>
+                    <p class="text-xs text-slate-200">Empowering Barangay Captain, Kagawads, and Citizens with real-time community demand data and fund allocation simulators.</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/20 text-right">
+                    <span class="block text-[10px] text-slate-200 uppercase font-semibold">Active Fiscal Year</span>
+                    <span class="text-lg font-bold text-phYellow">2026 Barangay Budget</span>
+                </div>
+            </div>
+
+            <!-- DSS Grid: Charts & Analytics -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Chart 1: Document Demand Breakdown -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                        <h3 class="font-bold text-govNavy flex items-center text-base">
+                            <i class="fas fa-chart-column text-phBlue mr-2"></i> Document Requests Volume (Monthly Trends)
+                        </h3>
+                        <span class="text-xs text-slate-500">Live Data</span>
+                    </div>
+                    <div class="h-64">
+                        <canvas id="docDemandChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-500 bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                        <strong>DSS Insight:</strong> Peak document requests occur in Q1 due to employment applications and business renewals. High demand for Certificate of Indigency dictates increased front-desk personnel allocation.
+                    </p>
+                </div>
+
+                <!-- Chart 2: Resident Needs Priority Tally -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                        <h3 class="font-bold text-govNavy flex items-center text-base">
+                            <i class="fas fa-chart-pie text-emerald-600 mr-2"></i> Community Needs & Incident Tally
+                        </h3>
+                        <span class="text-xs text-slate-500">Purok 1 - Purok 7 Reports</span>
+                    </div>
+                    <div class="h-64">
+                        <canvas id="communityNeedsChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-500 bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                        <strong>DSS Insight:</strong> Drainage clearing in Purok 3 & 5 and Solar Streetlight installation are the top citizen concern areas for immediate council allocation.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Interactive Barangay Budget Simulator -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-100 pb-3">
+                    <h3 class="text-xl font-bold text-govNavy flex items-center">
+                        <i class="fas fa-calculator text-amber-600 mr-2"></i> Barangay Project Budget & Resource Allocation Simulator
+                    </h3>
+                    <p class="text-xs text-slate-500">Barangay Captain & Kagawads Decision Tool: Simulate allocation of the ₱2,500,000 Annual Development Fund based on community priorities.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Sliders Control -->
+                    <div class="md:col-span-2 space-y-5">
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span><i class="fas fa-lightbulb text-amber-500 mr-1"></i> Solar Streetlights & Illumination</span>
+                                <span id="val-solar" class="text-phBlue">₱600,000</span>
+                            </div>
+                            <input type="range" id="slider-solar" min="0" max="1200000" step="50000" value="600000" oninput="updateBudgetSimulation()" class="w-full accent-phBlue cursor-pointer">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span><i class="fas fa-water text-blue-500 mr-1"></i> Drainage Clearing & Flood Control</span>
+                                <span id="val-drainage" class="text-phBlue">₱800,000</span>
+                            </div>
+                            <input type="range" id="slider-drainage" min="0" max="1200000" step="50000" value="800000" oninput="updateBudgetSimulation()" class="w-full accent-phBlue cursor-pointer">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span><i class="fas fa-[#CE1126] fa-kit-medical text-rose-500 mr-1"></i> Health Center Medicines & Equipment</span>
+                                <span id="val-health" class="text-phBlue">₱500,000</span>
+                            </div>
+                            <input type="range" id="slider-health" min="0" max="1200000" step="50000" value="500000" oninput="updateBudgetSimulation()" class="w-full accent-phBlue cursor-pointer">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span><i class="fas fa-[#0038A8] fa-volleyball text-indigo-500 mr-1"></i> Youth & SK Sports Covered Court Renovation</span>
+                                <span id="val-youth" class="text-phBlue">₱400,000</span>
+                            </div>
+                            <input type="range" id="slider-youth" min="0" max="1200000" step="50000" value="400000" oninput="updateBudgetSimulation()" class="w-full accent-phBlue cursor-pointer">
+                        </div>
+                    </div>
+
+                    <!-- Budget Result Card -->
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Allocation Summary</span>
+                            <div>
+                                <span class="text-xs text-slate-500">Total Development Budget:</span>
+                                <div class="text-lg font-bold text-slate-800">₱2,500,000.00</div>
+                            </div>
+                            <div class="border-t border-slate-200 pt-2">
+                                <span class="text-xs text-slate-500">Allocated Amount:</span>
+                                <div id="totalAllocated" class="text-2xl font-extrabold text-phBlue">₱2,300,000.00</div>
+                            </div>
+                            <div>
+                                <span class="text-xs text-slate-500">Remaining Reserve:</span>
+                                <div id="remainingBudget" class="text-lg font-bold text-emerald-600">₱200,000.00</div>
+                            </div>
+                        </div>
+
+                        <button onclick="saveBudgetDecision()" class="mt-4 w-full bg-govNavy text-phYellow hover:bg-blue-950 font-bold py-2.5 rounded-xl transition text-xs flex items-center justify-center">
+                            <i class="fas fa-check-circle mr-1.5"></i> Submit Decision Proposal
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Citizen Consultation & Poll Voting -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-100 pb-3 flex justify-between items-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-govNavy flex items-center">
+                            <i class="fas fa-check-to-slot text-phBlue mr-2"></i> Resident Community Poll & Voting
+                        </h3>
+                        <p class="text-xs text-slate-500">Help the Barangay Council decide! Vote for the next priority project for Barangay Pulong Tamo.</p>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs px-3 py-1 rounded-full font-bold">Active Citizen Poll</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="pollOptionsContainer">
+                    <!-- Poll Option 1 -->
+                    <div class="border-2 border-slate-200 rounded-2xl p-4 hover:border-phBlue transition space-y-3 relative bg-slate-50">
+                        <h4 class="font-bold text-slate-800 text-sm"><i class="fas fa-solar-panel text-amber-500 mr-1.5"></i> Solar Streetlight Expansion</h4>
+                        <p class="text-xs text-slate-500">Install 50 LED solar streetlights along Purok 4 and Purok 6 main road for safer night travel.</p>
+                        <div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+                            <div id="poll-bar-1" class="bg-phBlue h-3 rounded-full" style="width: 58%"></div>
+                        </div>
+                        <div class="flex justify-between items-center text-xs font-bold text-slate-600">
+                            <span id="poll-count-1">342 Votes</span>
+                            <span id="poll-percent-1" class="text-phBlue">58%</span>
+                        </div>
+                        <button onclick="castVote(1)" class="w-full bg-phBlue hover:bg-blue-900 text-white font-bold py-2 rounded-xl text-xs transition">
+                            Vote This Project
+                        </button>
+                    </div>
+
+                    <!-- Poll Option 2 -->
+                    <div class="border-2 border-slate-200 rounded-2xl p-4 hover:border-phBlue transition space-y-3 relative bg-slate-50">
+                        <h4 class="font-bold text-slate-800 text-sm"><i class="fas fa-notes-medical text-rose-500 mr-1.5"></i> Barangay Mobile Clinic Purchase</h4>
+                        <p class="text-xs text-slate-500">Acquire a dedicated barangay emergency patient transport vehicle with oxygen & first-aid equipment.</p>
+                        <div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+                            <div id="poll-bar-2" class="bg-emerald-600 h-3 rounded-full" style="width: 28%"></div>
+                        </div>
+                        <div class="flex justify-between items-center text-xs font-bold text-slate-600">
+                            <span id="poll-count-2">165 Votes</span>
+                            <span id="poll-percent-2" class="text-emerald-700">28%</span>
+                        </div>
+                        <button onclick="castVote(2)" class="w-full bg-emerald-600 hover:bg-emerald-800 text-white font-bold py-2 rounded-xl text-xs transition">
+                            Vote This Project
+                        </button>
+                    </div>
+
+                    <!-- Poll Option 3 -->
+                    <div class="border-2 border-slate-200 rounded-2xl p-4 hover:border-phBlue transition space-y-3 relative bg-slate-50">
+                        <h4 class="font-bold text-slate-800 text-sm"><i class="fas fa-wifi text-indigo-500 mr-1.5"></i> Free Public Wi-Fi Spot</h4>
+                        <p class="text-xs text-slate-500">Set up community high-speed internet hubs at Pulong Tamo Plaza and Health Center for students.</p>
+                        <div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+                            <div id="poll-bar-3" class="bg-purple-600 h-3 rounded-full" style="width: 14%"></div>
+                        </div>
+                        <div class="flex justify-between items-center text-xs font-bold text-slate-600">
+                            <span id="poll-count-3">82 Votes</span>
+                            <span id="poll-percent-3" class="text-purple-700">14%</span>
+                        </div>
+                        <button onclick="castVote(3)" class="w-full bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 rounded-xl text-xs transition">
+                            Vote This Project
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: DOCUMENT TRACKING SYSTEM -->
+        <section id="tab-track" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 max-w-3xl mx-auto space-y-6">
+                <div class="text-center space-y-2">
+                    <div class="w-16 h-16 bg-blue-100 text-phBlue rounded-full flex items-center justify-center mx-auto text-2xl">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h2 class="text-2xl font-extrabold text-govNavy">Track Your Document Request</h2>
+                    <p class="text-xs text-slate-500">Enter your generated Reference Code (e.g. <span class="font-mono bg-slate-100 px-1 rounded">PT-2026-8941</span>) to check current processing status.</p>
+                </div>
+
+                <!-- Tracking Form -->
+                <div class="flex gap-2">
+                    <input type="text" id="trackInput" uppercase placeholder="Enter Reference Code (e.g., PT-2026-8941)" class="flex-grow border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-phBlue focus:outline-none font-mono tracking-wider">
+                    <button onclick="trackRequest()" class="bg-phBlue hover:bg-govNavy text-white font-bold px-6 py-3 rounded-xl transition flex items-center">
+                        <i class="fas fa-search mr-2"></i> Track
+                    </button>
+                </div>
+
+                <!-- Sample Code Quick Try -->
+                <div class="text-xs text-center text-slate-500">
+                    Try Demo Code: <button onclick="quickDemoTrack('PT-2026-1001')" class="text-phBlue font-bold underline">PT-2026-1001</button> or <button onclick="quickDemoTrack('PT-2026-1002')" class="text-phBlue font-bold underline">PT-2026-1002</button>
+                </div>
+
+                <!-- Tracking Result Container -->
+                <div id="trackResultBox" class="hidden border border-slate-200 rounded-2xl p-5 bg-slate-50 space-y-4">
+                    <!-- Dynamic status timeline will render here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 6: LUPONG TAGAPAMAYAPA & INCIDENT PORTAL -->
+        <section id="tab-blotter" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 max-w-3xl mx-auto space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <span class="text-xs font-bold uppercase text-phRed tracking-wider">Lupong Tagapamayapa Desk</span>
+                    <h2 class="text-2xl font-extrabold text-govNavy">Barangay Incident Report & Dispute Mediation</h2>
+                    <p class="text-xs text-slate-500">Report neighborhood concerns, noise complaints, boundary disputes, or schedule peaceful mediation sessions.</p>
+                </div>
+
+                <form id="blotterForm" onsubmit="handleBlotterSubmit(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Complainant / Reporter Name <span class="text-phRed">*</span></label>
+                            <input type="text" id="blotterComplainant" required placeholder="Your Full Name" class="w-full border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-phBlue focus:outline-none bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Contact Number <span class="text-phRed">*</span></label>
+                            <input type="tel" id="blotterPhone" required placeholder="0917 123 4567" class="w-full border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-phBlue focus:outline-none bg-white">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Incident Location (Purok) <span class="text-phRed">*</span></label>
+                            <select id="blotterPurok" required class="w-full border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-phBlue focus:outline-none bg-white">
+                                <option value="" disabled selected>-- Select Incident Purok --</option>
+                                <option value="Purok 1">Purok 1</option>
+                                <option value="Purok 2">Purok 2</option>
+                                <option value="Purok 3">Purok 3</option>
+                                <option value="Purok 4">Purok 4</option>
+                                <option value="Purok 5">Purok 5</option>
+                                <option value="Purok 6">Purok 6</option>
+                                <option value="Purok 7">Purok 7</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Nature of Report <span class="text-phRed">*</span></label>
+                            <select id="blotterNature" required class="w-full border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-phBlue focus:outline-none bg-white">
+                                <option value="Neighborhood Noise / Public Nuisance">Neighborhood Noise / Public Nuisance</option>
+                                <option value="Property / Boundary Dispute">Property / Boundary Dispute</option>
+                                <option value="Unregistered Stray Animals">Unregistered Stray Animals</option>
+                                <option value="Request for Tanod Patrol">Request for Barangay Tanod Patrol</option>
+                                <option value="Others / General Report">Others / General Report</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Detailed Incident Narration <span class="text-phRed">*</span></label>
+                        <textarea id="blotterDetails" rows="4" required placeholder="Provide date, time, involved parties (if comfortable), and specific description..." class="w-full border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-phBlue focus:outline-none bg-white"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-phRed hover:bg-red-800 text-white font-bold py-3 rounded-xl transition text-sm flex items-center justify-center shadow-md">
+                        <i class="fas fa-shield-cat mr-2"></i> Submit Confidential Incident Report
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Confirmation Receipt Modal (Printable) -->
+    <div id="receiptModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl relative border-t-8 border-govNavy">
+            <button onclick="closeReceiptModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 no-print text-xl">
+                <i class="fas fa-xmark"></i>
+            </button>
+
+            <div class="text-center space-y-1 border-b border-slate-200 pb-4">
+                <div class="w-12 h-12 bg-govNavy text-phYellow rounded-full flex items-center justify-center mx-auto text-xl font-bold border-2 border-govGold">
+                    <i class="fas fa-landmark"></i>
+                </div>
+                <h3 class="text-lg font-bold text-govNavy uppercase">Barangay Pulong Tamo</h3>
+                <p class="text-xs text-slate-500">San Ildefonso, Bulacan | Document Request Confirmation</p>
+            </div>
+
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-center space-y-1">
+                <span class="text-xs text-amber-800 font-semibold uppercase">Your Tracking Reference Code</span>
+                <div id="modalRefCode" class="text-2xl font-extrabold font-mono text-govNavy tracking-widest select-all">PT-2026-XXXX</div>
+                <p class="text-[11px] text-amber-700">Please take a screenshot or copy this reference number for status tracking.</p>
+            </div>
+
+            <div class="space-y-2 text-xs text-slate-700">
+                <div class="flex justify-between border-b border-slate-100 py-1">
+                    <span class="text-slate-500">Applicant:</span>
+                    <span id="modalName" class="font-bold"></span>
+                </div>
+                <div class="flex justify-between border-b border-slate-100 py-1">
+                    <span class="text-slate-500">Document Requested:</span>
+                    <span id="modalDoc" class="font-bold text-phBlue"></span>
+                </div>
+                <div class="flex justify-between border-b border-slate-100 py-1">
+                    <span class="text-slate-500">Purok Address:</span>
+                    <span id="modalPurok" class="font-bold"></span>
+                </div>
+                <div class="flex justify-between border-b border-slate-100 py-1">
+                    <span class="text-slate-500">Processing Priority:</span>
+                    <span id="modalPriority" class="font-bold capitalize"></span>
+                </div>
+                <div class="flex justify-between border-b border-slate-100 py-1">
+                    <span class="text-slate-500">Estimated Fee:</span>
+                    <span id="modalFee" class="font-extrabold text-slate-900"></span>
+                </div>
+            </div>
+
+            <div class="pt-2 flex gap-3 no-print">
+                <button onclick="copyRefCode()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold py-2.5 rounded-xl text-xs transition flex items-center justify-center">
+                    <i class="fas fa-copy mr-1.5"></i> Copy Code
+                </button>
+                <button onclick="window.print()" class="flex-1 bg-phBlue hover:bg-govNavy text-white font-bold py-2.5 rounded-xl text-xs transition flex items-center justify-center">
+                    <i class="fas fa-print mr-1.5"></i> Print Receipt
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-govNavy text-white px-5 py-3 rounded-xl shadow-xl z-50 flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300">
+        <i id="toastIcon" class="fas fa-check-circle text-phYellow text-lg"></i>
+        <span id="toastMsg" class="text-xs font-semibold">Notification message</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-govNavy text-slate-300 text-xs py-6 mt-12 border-t-4 border-govGold no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-full bg-phYellow text-govNavy flex items-center justify-center font-bold text-sm">
+                    <i class="fas fa-landmark"></i>
+                </div>
+                <div>
+                    <span class="font-bold text-white block">Barangay Pulong Tamo E-Services Portal</span>
+                    <span>San Ildefonso, Bulacan, Philippines</span>
+                </div>
+            </div>
+            <div class="text-center sm:text-right text-slate-400">
+                <p>© 2026 Barangay Pulong Tamo. All Rights Reserved.</p>
+                <p class="text-[10px] text-slate-500">Built with Integrated Decision Support System (DSS) for Local Governance.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Document Master Catalog Data
+        const documentMaster = {
+            clearance: {
+                title: "Barangay Clearance",
+                fee: 50,
+                icon: "fa-certificate",
+                reqs: "Valid ID, Community Tax Certificate (Cedula), 1x1 Photo.",
+                desc: "Official clearance for local employment, police clearance application, or business transaction."
+            },
+            residency: {
+                title: "Certificate of Residency",
+                fee: 30,
+                icon: "fa-house-user",
+                reqs: "Proof of residence (Utility Bill or Barangay Tanod Verification), Valid ID.",
+                desc: "Certifies continuous residence in Barangay Pulong Tamo for school or government requirements."
+            },
+            indigency: {
+                title: "Certificate of Indigency",
+                fee: 0,
+                icon: "fa-hand-holding-heart",
+                reqs: "Valid ID, Endorsement from Purok Leader (Free of Charge).",
+                desc: "Issued for medical assistance, DSWD aid, legal aid, or educational financial assistance."
+            },
+            id: {
+                title: "Barangay Resident ID Card",
+                fee: 100,
+                icon: "fa-id-card",
+                reqs: "Proof of address, 1 Valid ID, Digital Photo.",
+                desc: "Official barangay ID recognized for local identification purposes within San Ildefonso."
+            },
+            firstjob: {
+                title: "First Time Job Seeker Certificate",
+                fee: 0,
+                icon: "fa-user-tie",
+                reqs: "Signed First-time Jobseeker Oath of Undertaking under R.A. 11261 (Free of Charge).",
+                desc: "Exempts first-time job applicants from government document fees."
+            },
+            business: {
+                title: "Barangay Business Permit Clearance",
+                fee: 150,
+                icon: "fa-briefcase",
+                reqs: "DTI Registration, Lease Contract / Property Title, Mayor's Permit Application Form.",
+                desc: "Mandatory clearance for operating commercial establishments within Pulong Tamo."
+            },
+            moral: {
+                title: "Certificate of Good Moral Character",
+                fee: 50,
+                icon: "fa-user-check",
+                reqs: "Valid ID, Clean Lupong Tagapamayapa record.",
+                desc: "Certifies applicant's good standing in the community for school or visa requirements."
+            },
+            blotter_cert: {
+                title: "Barangay Blotter / No-Derogatory Certificate",
+                fee: 50,
+                icon: "fa-scale-balanced",
+                reqs: "Valid ID, Formal request letter specifying legal purpose.",
+                desc: "Certifies non-existence or status of blotter reports under applicant's name."
+            },
+            custom_doc: {
+                title: "Custom / Special Document Request",
+                fee: 50,
+                icon: "fa-pen-to-square",
+                reqs: "Valid ID and detailed written purpose of the special certification.",
+                desc: "Allows citizens to request specific unlisted barangay endorsements or certificates."
+            }
+        };
+
+        // In-memory Request Database
+        let requestsDB = {
+            'PT-2026-1001': {
+                code: 'PT-2026-1001',
+                name: 'Maria Santos',
+                doc: 'Barangay Clearance',
+                purok: 'Purok 2',
+                status: 'Ready for Pick-up',
+                fee: '₱50.00',
+                date: '2026-10-10'
+            },
+            'PT-2026-1002': {
+                code: 'PT-2026-1002',
+                name: 'Juan Dela Cruz',
+                doc: 'Certificate of Indigency',
+                purok: 'Purok 5',
+                status: 'Approved',
+                fee: 'Free (₱0.00)',
+                date: '2026-10-11'
+            }
+        };
+
+        // Global Chart References
+        let docDemandChartInstance = null;
+        let communityNeedsChartInstance = null;
+
+        // Tab Switcher
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-govNavy', 'bg-slate-100', 'font-bold');
+                btn.classList.add('text-slate-600');
+            });
+
+            const activeBtn = document.getElementById(`nav-${tabId}`);
+            if(activeBtn) {
+                activeBtn.classList.add('text-govNavy', 'bg-slate-100', 'font-bold');
+                activeBtn.classList.remove('text-slate-600');
+            }
+
+            // Close mobile menu if open
+            document.getElementById('mobile-menu').classList.add('hidden');
+
+            // Scroll smoothly to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Initialize DSS Charts if entering DSS tab
+            if(tabId === 'dss') {
+                setTimeout(initDSSCharts, 100);
+            }
+        }
+
+        // Toggle Mobile Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Render Document Catalog
+        function renderCatalog() {
+            const container = document.getElementById('docs-catalog-grid');
+            if(!container) return;
+
+            let html = '';
+            for(const [key, item] of Object.entries(documentMaster)) {
+                if(key === 'custom_doc') continue;
+                html += `
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 hover:border-phBlue transition flex flex-col justify-between space-y-4">
+                        <div class="space-y-2">
+                            <div class="w-10 h-10 bg-blue-100 text-phBlue rounded-xl flex items-center justify-center text-lg">
+                                <i class="fas ${item.icon}"></i>
+                            </div>
+                            <h3 class="font-bold text-slate-800 text-base">${item.title}</h3>
+                            <p class="text-xs text-slate-500">${item.desc}</p>
+                        </div>
+                        <div class="pt-2 border-t border-slate-200">
+                            <div class="flex justify-between items-center text-xs mb-3">
+                                <span class="text-slate-500 font-medium">Standard Fee:</span>
+                                <span class="font-extrabold ${item.fee === 0 ? 'text-emerald-600' : 'text-govNavy'}">${item.fee === 0 ? 'FREE' : '₱' + item.fee + '.00'}</span>
+                            </div>
+                            <button onclick="selectDocForRequest('${key}')" class="w-full bg-white hover:bg-phBlue hover:text-white border border-phBlue text-phBlue font-bold py-2 rounded-xl text-xs transition">
+                                Request Document
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        // Trigger request tab pre-selected
+        function selectDocForRequest(key) {
+            switchTab('request');
+            const select = document.getElementById('docTypeSelect');
+            select.value = key;
+            updateDocDetails();
+        }
+
+        // Handle document dropdown change
+        function updateDocDetails() {
+            const docKey = document.getElementById('docTypeSelect').value;
+            const customBox = document.getElementById('customDocBox');
+            const noticeBox = document.getElementById('docRequirementNotice');
+            const reqsText = document.getElementById('docRequirementsText');
+            const feeBadge = document.getElementById('feeBadge');
+            const isExpress = document.getElementById('processingType').value === 'express';
+
+            if(docKey === 'custom_doc') {
+                customBox.classList.remove('hidden');
+                document.getElementById('customDocTitle').setAttribute('required', 'true');
+            } else {
+                customBox.classList.add('hidden');
+                document.getElementById('customDocTitle').removeAttribute('required');
+            }
+
+            if(docKey && documentMaster[docKey]) {
+                noticeBox.classList.remove('hidden');
+                const doc = documentMaster[docKey];
+                reqsText.innerHTML = `<strong>Requirements:</strong> ${doc.reqs}`;
+                let totalFee = doc.fee + (isExpress ? 30 : 0);
+                feeBadge.innerText = totalFee === 0 ? "FREE" : `₱${totalFee}.00`;
+            } else {
+                noticeBox.classList.add('hidden');
+            }
+        }
+
+        // Preview uploaded ID image
+        function previewUpload(event) {
+            const file = event.target.files[0];
+            if(file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('idPreviewImg').src = e.target.result;
+                    document.getElementById('idFileName').innerText = file.name;
+                    document.getElementById('idPreviewBox').classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Handle Online Request Submission
+        function handleFormSubmit(e) {
+            e.preventDefault();
+
+            const docKey = document.getElementById('docTypeSelect').value;
+            const name = document.getElementById('reqFullName').value;
+            const purok = document.getElementById('reqPurok').value;
+            const isExpress = document.getElementById('processingType').value === 'express';
+
+            let docTitle = documentMaster[docKey] ? documentMaster[docKey].title : "Barangay Issuance";
+            if(docKey === 'custom_doc') {
+                const customTitle = document.getElementById('customDocTitle').value;
+                docTitle = `Custom: ${customTitle}`;
+            }
+
+            let baseFee = documentMaster[docKey] ? documentMaster[docKey].fee : 50;
+            let finalFee = baseFee + (isExpress ? 30 : 0);
+            let feeString = finalFee === 0 ? "FREE (₱0.00)" : `₱${finalFee}.00`;
+
+            // Generate Random Reference Code: PT-2026-XXXX
+            const randomCode = `PT-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+
+            // Save into local DB
+            requestsDB[randomCode] = {
+                code: randomCode,
+                name: name,
+                doc: docTitle,
+                purok: purok,
+                status: 'Pending Review',
+                fee: feeString,
+                date: new Date().toISOString().split('T')[0]
+            };
+
+            // Display Confirmation Receipt Modal
+            document.getElementById('modalRefCode').innerText = randomCode;
+            document.getElementById('modalName').innerText = name;
+            document.getElementById('modalDoc').innerText = docTitle;
+            document.getElementById('modalPurok').innerText = purok;
+            document.getElementById('modalPriority').innerText = isExpress ? "Express / Urgent (+₱30)" : "Regular (2-3 Days)";
+            document.getElementById('modalFee').innerText = feeString;
+
+            document.getElementById('receiptModal').classList.remove('hidden');
+            showToast("Document request submitted successfully!");
+
+            // Reset form
+            document.getElementById('doc-request-form').reset();
+            document.getElementById('idPreviewBox').classList.add('hidden');
+            document.getElementById('docRequirementNotice').classList.add('hidden');
+            document.getElementById('customDocBox').classList.add('hidden');
+        }
+
+        function closeReceiptModal() {
+            document.getElementById('receiptModal').classList.add('hidden');
+        }
+
+        function copyRefCode() {
+            const code = document.getElementById('modalRefCode').innerText;
+            const temp = document.createElement('textarea');
+            temp.value = code;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+            showToast("Reference Code copied to clipboard!");
+        }
+
+        // Tracking Function
+        function trackRequest() {
+            const input = document.getElementById('trackInput').value.trim().toUpperCase();
+            const resultBox = document.getElementById('trackResultBox');
+
+            if(!input) {
+                showToast("Please enter a valid reference code.", "error");
+                return;
+            }
+
+            const record = requestsDB[input];
+            if(!record) {
+                resultBox.classList.remove('hidden');
+                resultBox.innerHTML = `
+                    <div class="text-center py-6 text-slate-500 space-y-2">
+                        <i class="fas fa-circle-exclamation text-3xl text-amber-500"></i>
+                        <p class="font-bold">No Request Found for "${input}"</p>
+                        <p class="text-xs">Please verify your reference number and try again.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Build Timeline Steps
+            const steps = ['Pending Review', 'Approved', 'Ready for Pick-up', 'Issued'];
+            const currentIdx = steps.indexOf(record.status) !== -1 ? steps.indexOf(record.status) : 0;
+
+            let timelineHtml = '';
+            steps.forEach((step, idx) => {
+                const isCompleted = idx <= currentIdx;
+                const isCurrent = idx === currentIdx;
+                timelineHtml += `
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${isCompleted ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-500'}">
+                            ${isCompleted ? '<i class="fas fa-check"></i>' : idx + 1}
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold block ${isCurrent ? 'text-phBlue' : 'text-slate-700'}">${step}</span>
+                            <span class="text-[10px] text-slate-400">${isCurrent ? 'Current Status' : (isCompleted ? 'Completed' : 'Pending')}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            resultBox.classList.remove('hidden');
+            resultBox.innerHTML = `
+                <div class="border-b border-slate-200 pb-3 flex justify-between items-center">
+                    <div>
+                        <span class="text-xs font-mono font-bold text-phBlue">${record.code}</span>
+                        <h4 class="font-bold text-slate-800 text-base">${record.doc}</h4>
+                    </div>
+                    <span class="bg-blue-100 text-phBlue px-3 py-1 rounded-full text-xs font-bold">${record.status}</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 text-xs text-slate-600">
+                    <div><strong>Applicant:</strong> ${record.name}</div>
+                    <div><strong>Purok Address:</strong> ${record.purok}</div>
+                    <div><strong>Date Filed:</strong> ${record.date}</div>
+                    <div><strong>Total Fee:</strong> ${record.fee}</div>
+                </div>
+
+                <div class="pt-3 border-t border-slate-200 space-y-3">
+                    <span class="text-xs font-bold text-slate-700">Application Progress Timeline:</span>
+                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                        ${timelineHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function quickDemoTrack(code) {
+            document.getElementById('trackInput').value = code;
+            trackRequest();
+        }
+
+        // DSS Chart Initializations
+        function initDSSCharts() {
+            // Chart 1: Document Requests Demand
+            const ctx1 = document.getElementById('docDemandChart');
+            if(ctx1) {
+                if(docDemandChartInstance) docDemandChartInstance.destroy();
+                docDemandChartInstance = new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Barangay Clearance', 'Cert. Residency', 'Indigency', 'Barangay ID', 'Job Seeker', 'Business Permit'],
+                        datasets: [{
+                            label: 'Requests Issued (2026 YTD)',
+                            data: [420, 310, 580, 240, 190, 115],
+                            backgroundColor: '#0038A8',
+                            borderRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+            }
+
+            // Chart 2: Community Needs & Incident Tally
+            const ctx2 = document.getElementById('communityNeedsChart');
+            if(ctx2) {
+                if(communityNeedsChartInstance) communityNeedsChartInstance.destroy();
+                communityNeedsChartInstance = new Chart(ctx2, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Drainage Clearing (Purok 3/5)', 'Streetlight Repairs', 'Financial Aid Req.', 'Noise / Tanod Patrol', 'Youth Programs'],
+                        datasets: [{
+                            data: [35, 25, 20, 12, 8],
+                            backgroundColor: ['#0038A8', '#FCD116', '#1B4D3E', '#CE1126', '#8B5CF6']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } } }
+                    }
+                });
+            }
+        }
+
+        // Budget Decision Simulator Engine
+        function updateBudgetSimulation() {
+            const solar = parseInt(document.getElementById('slider-solar').value);
+            const drainage = parseInt(document.getElementById('slider-drainage').value);
+            const health = parseInt(document.getElementById('slider-health').value);
+            const youth = parseInt(document.getElementById('slider-youth').value);
+
+            document.getElementById('val-solar').innerText = `₱${solar.toLocaleString()}`;
+            document.getElementById('val-drainage').innerText = `₱${drainage.toLocaleString()}`;
+            document.getElementById('val-health').innerText = `₱${health.toLocaleString()}`;
+            document.getElementById('val-youth').innerText = `₱${youth.toLocaleString()}`;
+
+            const total = solar + drainage + health + youth;
+            const budgetCap = 2500000;
+            const remaining = budgetCap - total;
+
+            const totalAllocEl = document.getElementById('totalAllocated');
+            const remainingEl = document.getElementById('remainingBudget');
+
+            totalAllocEl.innerText = `₱${total.toLocaleString()}`;
+            remainingEl.innerText = `₱${remaining.toLocaleString()}`;
+
+            if(remaining < 0) {
+                remainingEl.className = "text-lg font-bold text-phRed";
+                remainingEl.innerText = `OVER BUDGET (₱${Math.abs(remaining).toLocaleString()})`;
+            } else {
+                remainingEl.className = "text-lg font-bold text-emerald-600";
+            }
+        }
+
+        function saveBudgetDecision() {
+            showToast("Budget decision proposal recorded for Council Review!");
+        }
+
+        // Poll Voting Counter Logic
+        let pollVotes = { 1: 342, 2: 165, 3: 82 };
+        let hasVoted = false;
+
+        function castVote(optionId) {
+            if(hasVoted) {
+                showToast("You have already cast your vote for this active poll.", "error");
+                return;
+            }
+
+            pollVotes[optionId]++;
+            hasVoted = true;
+
+            const total = pollVotes[1] + pollVotes[2] + pollVotes[3];
+
+            for(let i = 1; i <= 3; i++) {
+                const count = pollVotes[i];
+                const pct = Math.round((count / total) * 100);
+                document.getElementById(`poll-count-${i}`).innerText = `${count} Votes`;
+                document.getElementById(`poll-percent-${i}`).innerText = `${pct}%`;
+                document.getElementById(`poll-bar-${i}`).style.width = `${pct}%`;
+            }
+
+            showToast("Thank you! Your vote has been recorded.");
+        }
+
+        // Blotter Submission
+        function handleBlotterSubmit(e) {
+            e.preventDefault();
+            showToast("Incident report securely logged for Lupong Tagapamayapa!");
+            document.getElementById('blotterForm').reset();
+        }
+
+        // Toast Notification Helper
+        function showToast(msg, type = "success") {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            const toastIcon = document.getElementById('toastIcon');
+
+            toastMsg.innerText = msg;
+            if(type === "error") {
+                toast.className = toast.className.replace('bg-govNavy', 'bg-phRed');
+                toastIcon.className = "fas fa-triangle-exclamation text-phYellow text-lg";
+            } else {
+                toast.className = toast.className.replace('bg-phRed', 'bg-govNavy');
+                toastIcon.className = "fas fa-check-circle text-phYellow text-lg";
+            }
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // Initialize App on Window Load
+        window.onload = function() {
+            renderCatalog();
+            updateBudgetSimulation();
+        };
+    </script>
+</body>
+</html>
